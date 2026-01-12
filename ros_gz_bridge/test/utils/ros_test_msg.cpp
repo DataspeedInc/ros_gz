@@ -97,6 +97,34 @@ void compareTestMsg(const std::shared_ptr<actuator_msgs::msg::Actuators> & _msg)
   }
 }
 
+void createTestMsg(can_msgs::msg::Frame & _msg)
+{
+  std_msgs::msg::Header header_msg;
+  createTestMsg(header_msg);
+
+  _msg.header = header_msg;
+  _msg.id = 0x123;
+  _msg.is_rtr = false;
+  _msg.is_extended = false;
+  _msg.is_error = false;
+  _msg.dlc = 8;
+  _msg.data = {0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01};
+}
+
+void compareTestMsg(const std::shared_ptr<can_msgs::msg::Frame> & _msg)
+{
+  can_msgs::msg::Frame expected_msg;
+  createTestMsg(expected_msg);
+
+  compareTestMsg(_msg->header);
+  EXPECT_EQ(expected_msg.id, _msg->id);
+  EXPECT_EQ(expected_msg.is_rtr, _msg->is_rtr);
+  EXPECT_EQ(expected_msg.is_extended, _msg->is_extended);
+  EXPECT_EQ(expected_msg.is_error, _msg->is_error);
+  EXPECT_EQ(expected_msg.dlc, _msg->dlc);
+  EXPECT_EQ(expected_msg.data, _msg->data);
+}
+
 void compareTestMsg(const std::shared_ptr<std_msgs::msg::ColorRGBA> & _msg)
 {
   std_msgs::msg::ColorRGBA expected_msg;

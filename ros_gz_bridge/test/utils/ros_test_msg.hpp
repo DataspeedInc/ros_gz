@@ -30,6 +30,7 @@
 #include <std_msgs/msg/header.hpp>
 #include <std_msgs/msg/string.hpp>
 #include <actuator_msgs/msg/actuators.hpp>
+#include <can_msgs/msg/frame.hpp>
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
@@ -202,6 +203,16 @@ void createTestMsg(actuator_msgs::msg::Actuators & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<actuator_msgs::msg::Actuators> & _msg);
+
+/// can_msgs
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(can_msgs::msg::Frame & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<can_msgs::msg::Frame> & _msg);
 
 /// geometry_msgs
 

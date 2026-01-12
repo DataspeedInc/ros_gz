@@ -203,6 +203,30 @@ void compareTestMsg(const std::shared_ptr<gz::msgs::Clock> & _msg)
   EXPECT_EQ(expected_msg.sim().nsec(), _msg->sim().nsec());
 }
 
+void createTestMsg(gz::msgs::CanFrame & _msg)
+{
+  createTestMsg(*_msg.mutable_header());
+  _msg.set_id(0x123);
+  _msg.set_is_rtr(false);
+  _msg.set_is_extended(false);
+  _msg.set_is_error(false);
+  _msg.set_dlc(8);
+  _msg.set_data(std::string(8, '\x01'));
+}
+
+void compareTestMsg(const std::shared_ptr<gz::msgs::CanFrame> & _msg)
+{
+  gz::msgs::CanFrame expected_msg;
+  createTestMsg(expected_msg);
+
+  EXPECT_EQ(expected_msg.id(), _msg->id());
+  EXPECT_EQ(expected_msg.is_rtr(), _msg->is_rtr());
+  EXPECT_EQ(expected_msg.is_extended(), _msg->is_extended());
+  EXPECT_EQ(expected_msg.is_error(), _msg->is_error());
+  EXPECT_EQ(expected_msg.dlc(), _msg->dlc());
+  EXPECT_EQ(expected_msg.data(), _msg->data());
+}
+
 void createTestMsg(gz::msgs::StringMsg & _msg)
 {
   _msg.set_data("string");

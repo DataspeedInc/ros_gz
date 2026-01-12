@@ -28,7 +28,7 @@
   <depend>cli11</depend>
   <depend>geometry_msgs</depend>
   <depend>gz_math_vendor</depend>
-  <depend>gz_msgs_vendor</depend>
+  <depend>gz-msgs</depend>
   <depend>gz_sim_vendor</depend>
   <depend>gz_transport_vendor</depend>
   <depend>launch</depend>

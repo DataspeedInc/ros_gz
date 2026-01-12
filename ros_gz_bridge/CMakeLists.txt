@@ -19,8 +19,13 @@ find_package(yaml-cpp REQUIRED)
 find_package(gz_transport_vendor REQUIRED)
 find_package(gz-transport REQUIRED)
 
-find_package(gz_msgs_vendor REQUIRED)
 find_package(gz-msgs REQUIRED)
+find_package(can_msgs REQUIRED)
+
+# Add our local gz-msgs (with can_frame) since vendor version doesn't have it
+set(GZ_MSGS_CUSTOM_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../install/gz-msgs)
+include_directories(SYSTEM ${GZ_MSGS_CUSTOM_DIR}/include/gz/msgs12)
+link_directories(${GZ_MSGS_CUSTOM_DIR}/lib)
 
 # Install the python module for this package
 ament_python_install_package(${PROJECT_NAME})
@@ -30,6 +35,7 @@ set(GZ_MSGS_VERSION_FULL ${gz-msgs_VERSION})
 set(BRIDGE_MESSAGE_TYPES
   builtin_interfaces
   actuator_msgs
+  can_msgs
   geometry_msgs
   gps_msgs
   nav_msgs
@@ -101,6 +107,7 @@ target_link_libraries(${bridge_lib}
   PUBLIC
     gz-msgs::core
     gz-transport::core
+    ${GZ_MSGS_CUSTOM_DIR}/lib/libgz-msgs.so
   PRIVATE
     yaml-cpp::yaml-cpp
 )
@@ -109,6 +116,7 @@ ament_target_dependencies(${bridge_lib}
   PUBLIC
     rclcpp
     rclcpp_components
+    can_msgs
     ${BRIDGE_MESSAGE_TYPES}
 )
 
@@ -193,6 +201,7 @@ if(BUILD_TESTING)
   target_link_libraries(test_ros_gz_interfaces
     ${bridge_lib}
     ${ros_gz_interfaces_TARGETS}
+    ${GZ_MSGS_CUSTOM_DIR}/lib/libgz-msgs.so
     gtest
     gtest_main
   )
@@ -213,6 +222,7 @@ if(BUILD_TESTING)
     ${GTEST_LIBRARIES}
     gz-msgs::core
     gz-transport::core
+    ${GZ_MSGS_CUSTOM_DIR}/lib/libgz-msgs.so
   )
   ament_target_dependencies(test_utils
     rclcpp
@@ -224,6 +234,7 @@ if(BUILD_TESTING)
     tf2_msgs
     trajectory_msgs
     vision_msgs
+    can_msgs
   )
 
   set(generated_path "${CMAKE_BINARY_DIR}/generated/test")
@@ -338,10 +349,10 @@ ament_export_targets(export_${PROJECT_NAME})
 # specific order: dependents before dependencies
 ament_export_dependencies(rclcpp)
 ament_export_dependencies(rclcpp_components)
-ament_export_dependencies(gz_msgs_vendor)
 ament_export_dependencies(gz-msgs)
 ament_export_dependencies(gz_transport_vendor)
 ament_export_dependencies(gz-transport)
+ament_export_dependencies(can_msgs)
 ament_export_dependencies(${BRIDGE_MESSAGE_TYPES})
 
 ament_package()

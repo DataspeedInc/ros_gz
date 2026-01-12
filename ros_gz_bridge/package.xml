@@ -34,8 +34,9 @@
   <depend>trajectory_msgs</depend>
   <depend>yaml_cpp_vendor</depend>
   <depend>vision_msgs</depend>
+  <depend>can_msgs</depend>
 
-  <depend>gz_msgs_vendor</depend>
+  <depend>gz-msgs</depend>
   <depend>gz_transport_vendor</depend>
 
   <test_depend>ament_cmake_gtest</test_depend>

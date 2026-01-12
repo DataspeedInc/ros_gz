@@ -27,6 +27,9 @@ MAPPINGS = {
     'builtin_interfaces': [
         Mapping('Time', 'Time'),
     ],
+    'can_msgs': [
+        Mapping('Frame', 'CanFrame'),
+    ],
     'actuator_msgs': [
         Mapping('Actuators', 'Actuators'),
     ],

@@ -22,6 +22,7 @@
 #include <gz/msgs/battery_state.pb.h>
 #include <gz/msgs/boolean.pb.h>
 #include <gz/msgs/camera_info.pb.h>
+#include <gz/msgs/can_frame.pb.h>
 #include <gz/msgs/clock.pb.h>
 #include <gz/msgs/color.pb.h>
 #include <gz/msgs/contact.pb.h>
@@ -166,6 +167,14 @@ void createTestMsg(gz::msgs::Clock & _msg);
 /// \brief Compare a message with the populated for testing.
 /// \param[in] _msg The message to compare.
 void compareTestMsg(const std::shared_ptr<gz::msgs::Clock> & _msg);
+
+/// \brief Create a message used for testing.
+/// \param[out] _msg The message populated.
+void createTestMsg(gz::msgs::CanFrame & _msg);
+
+/// \brief Compare a message with the populated for testing.
+/// \param[in] _msg The message to compare.
+void compareTestMsg(const std::shared_ptr<gz::msgs::CanFrame> & _msg);
 
 /// \brief Create a message used for testing.
 /// \param[out] _msg The message populated.
