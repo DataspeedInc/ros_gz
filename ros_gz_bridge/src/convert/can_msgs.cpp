@@ -6,6 +6,9 @@ namespace ros_gz_bridge
 template<>
 void convert_gz_to_ros(const gz::msgs::CanFrame& gz_msg, can_msgs::msg::Frame& ros_msg)
 {
+    ros_msg.header.stamp.sec = gz_msg.header().stamp().sec();
+    ros_msg.header.stamp.nanosec = gz_msg.header().stamp().nsec();
+
     // Convert CAN frame fields
     ros_msg.id = gz_msg.id();
     ros_msg.is_rtr = gz_msg.is_rtr();
